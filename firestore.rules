@@ -1,0 +1,9 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Somente usuários autenticados no Firebase Authentication podem acessar a frota.
+    match /equipamentos/{equipmentId} {
+      allow read, create, update, delete: if request.auth != null;
+    }
+  }
+}
